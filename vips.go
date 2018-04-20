@@ -672,6 +672,13 @@ func vipsImageType(buf []byte) ImageType {
 	return UNKNOWN
 }
 
+func RReadImageType(buf []byte) string {
+	length := C.size_t(len(buf))
+	imageBuf := unsafe.Pointer(&buf[0])
+	load := C.vips_foreign_find_load_buffer(imageBuf, length)
+	return C.GoString(load)
+}
+
 func readImageType(buf []byte) string {
 	length := C.size_t(len(buf))
 	imageBuf := unsafe.Pointer(&buf[0])
